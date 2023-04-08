@@ -1,0 +1,126 @@
+<!--
+<!DOCTYPE html>   
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Login</title>    
+</head>
+<script>
+
+</script>
+
+    <body>
+        <h1> We Cheffes Login Form</h1>
+        <form method="post">  
+            <div class="container">   
+                <label>Username:</label>   
+                <input type="text" placeholder="Enter Username" name="username" required>  
+                <label>Password:</label>   
+                <input type="password" placeholder="Enter Password" name="password" required>  
+                <button type="submit" onclick="login()">Login</button>   
+                <input type="checkbox" checked="checked">Remember me   
+                <button type="button" class="cancelbtn">Cancel</button>   
+                Forgot <a href="#">password?</a>   
+            </div>
+            <script>
+                let pb = new PocketBase('https://pocketbase.io');
+                const authData = await pb.collection('users').authWithPassword(document.querySelector("username", "password"));
+            </script>
+        </form>     
+    </body>     
+</html>
+-->
+
+
+<!--LOG IN WITH EMAIL-->
+
+<script>
+
+let b = r;
+ 
+const pb = new PocketBase('https://pocketbase.io');
+
+const authData = await pb.collection('users').authWithPassword(loginState.email, loginState.password);
+
+//get to know how the client/user/users/pb variables works
+//how to check if a user is logged in automatically when a page requires an authentication
+
+let status = false;
+
+let resultData = []
+
+let loginState = {
+    email: "",
+    password: "",
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const getRegister = document.querySelector('#registration').onclick = function() {
+        const user = client.Users.create({
+        email: loginState.email,
+        password: loginState.password,
+    });
+    console.log(user);
+    if (user) {
+        sendEmail();
+        prompt("Please, verify your email to login now! ")
+    }
+    async function sendEmail() {
+        await client.Users.requestVerification(loginState.email);
+    }}
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btnLogin = document.querySelector('#login').onclick = function() {
+    client.Users.authViaEmail(loginState.email, loginState.password);
+    console.log(authData)
+    if (authData) {
+        getAllColl()
+        console.log("Success Login")
+        staus = true
+        location.assign.url("cheffe_profile.html");
+    }
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector()
+    async function btnLogout() {
+        const user = client.AuthStore.clear();
+        if (user === true) {
+            status = false
+        }
+}
+
+}
+
+</script>
+
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title>Login</title>
+</head>
+    <body>
+        <div class="login_form">
+            <h1>Login</h1>
+            <label>Email:</label>   
+            <input id="email-input" value="email" type="text" placeholder="Enter Email" name="email" required>
+            <br/>
+            </td> </tr> <tr> <td>
+            <label>Password:</label>   
+            <input id="password-input" value="password" type="password" placeholder="Enter Password" name="password" required>
+            <br/>
+            <input type="checkbox">Remember me
+            <a href="index.html">Forgot password?</a>
+            <br/>
+            <button id="registration">Get Register</button>
+            <button id="login">Login Now</button>
+            <br>
+        </div>
+    </body>
+</html>
+
+

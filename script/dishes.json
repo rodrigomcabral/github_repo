@@ -1,0 +1,46 @@
+// in JSON files/format we have to use double quotes
+// we also have to create an object inside the items
+{
+    "items": [
+        {
+            "sys": {"id": "1"},
+            "fields": {
+                "title": "JavaScript Programming Mastercourse",
+                "price": 150,
+                "images": {"fields":{"file":{"url": "images/women.jpeg"}}} 
+            }
+        },
+        {
+            "sys": {"id": "2"},
+            "fields": {
+                "title": "C++ Programming Mastercourse",
+                "price": 140,
+                "images": {"fields":{"file":{"url": "images/women.jpeg"}}} 
+            }
+        },
+        {
+            "sys": {"id": "3"},
+            "fields": {
+                "title": "Python Programming Mastercourse",
+                "price": 130,
+                "images": {"fields":{"file":{"url": "images/women.jpeg"}}} 
+            }
+        },
+        {
+            "sys": {"id": "4"},
+            "fields": {
+                "title": "PHP Programming Mastercourse",
+                "price": 120,
+                "images": {"fields":{"file":{"url": "images/women.jpeg"}}} 
+            }
+        },
+        {
+            "sys": {"id": "5"},
+            "fields": {
+                "title": "Java Programming Mastercourse",
+                "price": 110,
+                "images": {"fields":{"file":{"url": "images/women.jpeg"}}} 
+            }
+        },
+    ]
+}

@@ -1,0 +1,135 @@
+
+*{
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    font-weight: 400;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: lightgrey;
+    position: fixed;
+    top: 0;
+    padding-right: 20px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 700;
+    padding-right: 2m;
+    padding-left: 2em;
+    color: darkred;
+    text-align: center;
+}
+
+.menu {
+    width: 50%;
+    margin: 0;
+    padding-right: 2em;
+}
+
+.list {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.list-items a {
+    color: orange;
+    font-family: sans-serif;
+    font-size: 18px;
+    transition: 0.4s;
+    font-weight: 400;
+}
+
+.list-items a:hover {
+    color: black;
+}
+
+.list2 {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.list-items2 a {
+    color: darkred;
+    font-family: sans-serif;
+    font-size: 20px;
+    transition: 0.4s;
+    font-weight: 400;
+}
+
+.list-items2 a:hover {
+    color: black;
+}
+
+.section1 {
+    height: calc(100vh - 10vh);
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+.list-meals {
+    height: 150px;
+    width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    font-family:'Times New Roman';
+    padding: 40px;
+}
+
+.list-meals h1 {
+    font-size: 1.4em;
+}
+
+
+.list-meals button {
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: orange;
+    background-color: lightgrey;
+    
+}
+
+
+/*
+.section1 .list-meals a {
+    display: flex;
+    justify-content: center;
+    padding: 1em 3em;
+    font-size: 0.8em;
+    color: white;
+    background: #f09b5f;
+    transition: all 0.3s;
+}
+
+

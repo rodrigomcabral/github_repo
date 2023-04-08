@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<title>Contact</title>
+<head></head>
+<script>
+import PocketBase from './pocketbase.min.js';
+
+const client = new PocketBase('http://127.0.0.1:8090'); 
+
+// getting the filled form through id and storing in a variable
+let form = document.getElementById("contact-form");
+// creating an event handler to deal with the submitted form 
+document.addEventListener('DOMContentLoaded', function() {
+  form.addEventListener('submit', async event=> {
+    event.preventDefault();
+    // creating an array object to store the data inside each created form 
+    // handles the HTML by using the element as key and the inputs as the values
+    const data = Object.fromEntries(new FormData(form))
+    // separating each data per input?
+    const inputs = Object.fromEntries([...form].map(i=> [i.name, i]))
+    // in the same event, catch errors and display in case necessart
+    try {
+      const user = await client.users.create(data);
+    // console.log("Step 1:", client.users, "Step 2:", user)
+    // why the "err" is automatic runned as an error?
+    } catch (err) {
+      // reporting and displaying errors handlers by creating a variable to catch the errors
+      const el = document.getElementById('user-create-error')
+      // didn't understand this condition...
+      if (err.data && err.data.message) {
+        el.textContent = err.data.message
+        const inputErrorDetails = err.data.data
+        if (inputErrorDetails) {
+          for (const [inputName, { message }] of Object.entries(inputErrorDetails)) {
+            const input = inputs[inputName]
+            if (!input) continue
+            input.setCustomValidity(message)
+            input.reportValidity()
+            input.addEventListener("input", e => {
+              input.setCustomValidity("")
+            }, { once: true })
+            break;
+          }
+        }
+      } else {
+        // handle unexpected errors
+        el.textContent = err.message
+      }
+      console.dir(err)
+    }
+  })
+});
+
+
+let menuStatus = false;
+
+</script>
+
+<body>
+  <h1><center>Contact Us</center></h1>
+  <br>
+  <div>
+    <form id="contact_form" method="post">
+        <label for="Name">Your Name:</label>
+        <input name="name" placeholder="enter your full name" type="text">
+        <br/>
+        <label name="email">Your Email:</label>
+        <input name="email" placeholder="enter your email" type="text">
+        <br/>
+        <label name="comments">Comments:</label>
+        <select>
+          <option value="review">Give us a review!</option>
+          <option value="event">Lets have an event!</option>
+          <option value="question">Ask us a question!</option>
+        </select>
+        <br/>
+        <textarea rows="10" cols="70"></textarea>
+        <button type="submit" value="Submit" style padding="10px"></style>Send Form</button>
+        </div>
+        <span id="user-create-error"></span>
+      </form>
+    </body>
+</html>
+
+
+
+
+
+
+
+

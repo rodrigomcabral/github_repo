@@ -1,0 +1,192 @@
+
+<html>
+<div>
+    <form
+        <h1>Add a Meal</h1>
+        <label>Name:</label>   
+        <input type="text" placeholder="Meal name" name="name" required>
+        <br>
+        <label>Description:</label>   
+        <input type="text" placeholder="Descriptions" name="descriptions" required>
+        <br>
+        <label>Minimun Quantity:</label>   
+        <input type="number" placeholder="Minimum Quantity for Order" name="min_qty" required>
+        <br>
+        <label>Diet:</label>   
+        <input type="text" placeholder="Not recommended for someone?" name="diet" required>
+        <br>
+        <label>Image:</label>   
+        <input type="" placeholder="Add an Image" name="image" required>
+        <br>
+        <button onclick="addNewMeal()">Add Meal</button>
+        <br>
+    </form>
+</div>
+</html>
+
+
+<script>
+
+let loginState = {
+    email: "",
+    password: "",
+}
+
+
+let stateCheffes = {
+    name: "",
+    nationality: "",
+    email: "",
+    phone: "",
+};
+
+
+let stateMeals = {
+    name: "",
+    description: "",
+    min_qty: "",
+    diet: "",
+    image: "",
+};
+
+let stateOrders = {
+    user: "",
+    cost: "",
+    due_at: "",
+    status: "",
+    comment: "",
+}
+  
+let meal_name = document.getElementsByName("name")
+let descriptions = document.getElementsByName("descriptions")
+let minimum_quantity = document.getElementsByName("min_qty")
+let diet = document.getElementsByName("diet")
+let image = document.getElementsByName("image")
+ 
+
+async function deleteCheffes(r) {
+    await client.Records.delete("cheffes", r.id);
+}
+
+async function editCheffes(r) {
+    let promptName = prompt("update name", r.name)
+    let promptNationality = prompt("update nationality", r.nationality)
+    let promptEmail = prompt("update email", r.email)
+    let promptPhone = prompt("update phone", r.phone)
+    const editedCheffes = await client.Records.update("cheffes", r.id, 
+    {name: promptName, 
+    nationality: promptNationality,
+    email: prompt.Email,
+    phone: prompt.Phone,
+});
+}
+
+async function addNewMeal() {
+    const record = client.records("meals").create("meal", {
+        name: meal_name.name,
+        description: descriptions.description,
+        min_qty: minimum_quantity.min_qty,
+        diet: diet.diet,
+        image: image.image,
+    });
+    console.log(record)
+}
+
+async function deleteMeal(r) {
+    await client.Records.delete("meals", r.id);
+}
+
+
+//for (resultData as r)
+            <button onclick={editCheffes(r)} >edit</button>
+            {r.name} - {r.nationality} - {r.email} - {r.phone}'
+            <button onclick={deleteCheffes(r)}>delete</button>
+            {r.name} - {r.nationality} - {r.email} - {r.phone}'
+
+
+</script>
+    
+    </body>     
+</html>   
+
+
+
+
+const addOrders = async(order: Order) => {
+    return client.records("orders").create(order);
+}
+
+const deleteMealsById = {id: string} => {
+    return client.records("meals").delete(id)
+}
+
+const updateMealById = {meal: Meal} => {
+    return client.records("meals").update(meal.id)
+}
+
+
+
+<!--login funcionality
+<script>
+function login() {
+    // retrieve data input from the form
+    let username = document.getElementById("username").value
+    let password = document.getElementById("password").value
+
+    //loop though all the user objects and confirm if the username and password are correct
+    for (i = 0; i < .length; i ++) {
+        if (username === [i].username && password === [i].password) {
+            console.log(username + "is logged in!!!")
+            return;
+        }
+    }
+    // error in case the username/password do not match
+    console.log("Your username or password are incorrect!")
+}
+
+function registerCheffe() {
+    //make sure that the new user does not have the same data from the already registered users
+    let register_cheffe = document.getElementById("newuser").value
+    let register_password = document.getElementById("newpassword").value
+    let newUser = {
+        username: registerUser,
+        password: registerPassword
+    }
+    for (i = 0; i < .length; i ++) {
+        if (registerUser === [i].username) {
+            alert("The username chosen is already in use. Please select another.")
+            return;
+        } else if (registerPassword.length < 8) {
+        alert("The password is too short. Include 8 or more characters.")
+        return;
+        }
+    }
+}
+// to push a new user/object we need to create a new variable format
+.push(newUser)
+console.log()
+</script>
+
+
+
+/*
+<div class="register_form">
+    <form method="post"> 
+        <h1>Register Food</h1>
+            <label>Email:</label>   
+            <input type="text" placeholder="Enter Email" bind:value={loginState.email} name="email" required>
+            <br/>
+            <hr/>
+            <label>Password:</label>   
+            <input type="password" placeholder="Enter Password" bind:value={loginState.password} name="password" required>
+            <br/>
+            <hr/>
+            <label>Confirm Password:</label>   
+            <input type="password" placeholder="Confirm Password" bind:value={loginState.password} name="password" required>
+            <br/>
+            <br/>
+            <button type="submit" onclick="()">Register</button>
+            <hr/>
+    </form>
+</div>
+*/
