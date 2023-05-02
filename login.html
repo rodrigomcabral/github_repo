@@ -40,11 +40,6 @@ let b = r;
  
 const pb = new PocketBase('https://pocketbase.io');
 
-const authData = await pb.collection('users').authWithPassword(loginState.email, loginState.password);
-
-//get to know how the client/user/users/pb variables works
-//how to check if a user is logged in automatically when a page requires an authentication
-
 let status = false;
 
 let resultData = []
@@ -54,9 +49,13 @@ let loginState = {
     password: "",
 }
 
+const authData = await pb.collection('users').authWithPassword(loginState.email, loginState.password);
+
+//how to check if a user is logged in automatically when a page requires an authentication
+
 document.addEventListener('DOMContentLoaded', function() {
-    const getRegister = document.querySelector('#registration').onclick = function() {
-        const user = client.Users.create({
+    const getRegister = document.querySelector('#register').onclick = function() {
+        const user = pb.Users.create({
         email: loginState.email,
         password: loginState.password,
     });
@@ -66,20 +65,22 @@ document.addEventListener('DOMContentLoaded', function() {
         prompt("Please, verify your email to login now! ")
     }
     async function sendEmail() {
-        await client.Users.requestVerification(loginState.email);
+        await pb.Users.requestVerification(loginState.email);
     }}
 });
 
 
 document.addEventListener('DOMContentLoaded', function() {
     const btnLogin = document.querySelector('#login').onclick = function() {
-    client.Users.authViaEmail(loginState.email, loginState.password);
+    pb.Users.authViaEmail(loginState.email, loginState.password);
     console.log(authData)
     if (authData) {
         getAllColl()
         console.log("Success Login")
         staus = true
         location.assign.url("cheffe_profile.html");
+    } else {
+        prompt("You must have to be authorized beforehand to login WeCheffes. ")
     }
     }
 });
@@ -88,13 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector()
     async function btnLogout() {
-        const user = client.AuthStore.clear();
+        const user = pb.AuthStore.clear();
         if (user === true) {
             status = false
         }
-}
-
-}
+    }
+});
 
 </script>
 
@@ -107,16 +107,16 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="login_form">
             <h1>Login</h1>
             <label>Email:</label>   
-            <input id="email-input" value="email" type="text" placeholder="Enter Email" name="email" required>
+            <input id="email-input" type="text" placeholder="Enter Email" name="email" required>
             <br/>
             </td> </tr> <tr> <td>
             <label>Password:</label>   
-            <input id="password-input" value="password" type="password" placeholder="Enter Password" name="password" required>
+            <input id="password-input" type="password" placeholder="Enter Password" name="password" required>
             <br/>
             <input type="checkbox">Remember me
             <a href="index.html">Forgot password?</a>
             <br/>
-            <button id="registration">Get Register</button>
+            <button id="register">Get Register</button>
             <button id="login">Login Now</button>
             <br>
         </div>
@@ -124,3 +124,31 @@ document.addEventListener('DOMContentLoaded', function () {
 </html>
 
 
+
+
+<!--
+class Login {
+    constructor(form, fields) {
+        this.form = form;
+        this.fields = fields
+        this.validationOnSubmit();
+    }
+    validationOnSubmit() {
+        let self = this;
+
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            self.fields.forEach((field) => {
+                const input = document.querySelector(`#${field}`);
+                console.log(input.value);
+            });
+        });
+    }
+}
+
+cont form = document.querySelector('. ');
+if (form) {
+    const fields = ['username', 'password'];
+    const validator = new Login(form, fields) 
+}
+-->
