@@ -1,12 +1,26 @@
 <!doctype html>
 <html>
-<title>Contact</title>
-<head></head>
+<head>
+  <title>Contact</title>
+</head>
+
+<!--
+Installing pocketbase manually (browser)
+<script src="C:\Users\rodri\.vscode\PocketBase\pb_public\script\pocketbase.min.js"></script>
+<script type="text/javascript">
+  const pb = new PocketBase('http://127.0.0.1:8090'); 
+</script>
+-->
+
+
+<script type="module">
+//Installing pocketbase using modules
+import PocketBase from '/pocketbase.min.js'
+
+const client = new PocketBase('http://127.0.0.1:8090');
+</script>
+
 <script>
-import PocketBase from './pocketbase.min.js';
-
-const client = new PocketBase('http://127.0.0.1:8090'); 
-
 // getting the filled form through id and storing in a variable
 let form = document.getElementById("contact-form");
 // creating an event handler to deal with the submitted form 
@@ -16,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // creating an array object to store the data inside each created form 
     // handles the HTML by using the element as key and the inputs as the values
     const data = Object.fromEntries(new FormData(form))
-    // separating each data per input?
-    const inputs = Object.fromEntries([...form].map(i=> [i.name, i]))
+    // going through the inputs filled so we can interact with
+    const inputs = Object.fromEntries([...form].map(i => [i.name, i]))
     // in the same event, catch errors and display in case necessart
     try {
       const user = await client.users.create(data);
@@ -50,9 +64,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   })
 });
-
+// to do a login api: before submitting the form: localStorage.setItem('auth', 1); 
 
 let menuStatus = false;
+
+
+/*
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('submit-contact').onsubmit = () => {
+    const contactInput = document.querySelector('select').value;
+    alert(`Your ${contactInput} was submitted succefully!`)
+  }
+});
+*/
+
+
 
 </script>
 
@@ -60,22 +86,25 @@ let menuStatus = false;
   <h1><center>Contact Us</center></h1>
   <br>
   <div>
-    <form id="contact_form" method="post">
-        <label for="Name">Your Name:</label>
+    <form id="contact_form">
+        <label for="Name">Name:</label>
         <input name="name" placeholder="enter your full name" type="text">
         <br/>
-        <label name="email">Your Email:</label>
+        <br/>
+        <label name="email">Email:</label>
         <input name="email" placeholder="enter your email" type="text">
         <br/>
-        <label name="comments">Comments:</label>
+        <br/>
+        <label name="comments">Comments!</label>
         <select>
           <option value="review">Give us a review!</option>
           <option value="event">Lets have an event!</option>
           <option value="question">Ask us a question!</option>
         </select>
         <br/>
+        <br/>
         <textarea rows="10" cols="70"></textarea>
-        <button type="submit" value="Submit" style padding="10px"></style>Send Form</button>
+        <button id="submit-contact" type="submit" value="Submit" style padding="10px"></style>Send Form</button>
         </div>
         <span id="user-create-error"></span>
       </form>
